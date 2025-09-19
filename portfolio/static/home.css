@@ -84,6 +84,3 @@ footer {
     transition: color 0.3s;
   }
 
-  .skill-icon-wrapper:hover {
-    color: blue !important;
-  }
