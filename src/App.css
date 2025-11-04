@@ -56,10 +56,6 @@ section {
 }
 
 @media (max-width: 767px) {
-  /* Hide the vertical line on mobile */
-  .timeline-line {
-    display: none;
-  }
 
   /* Make each item stacked neatly */
   .education-item {
