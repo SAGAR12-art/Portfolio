@@ -55,19 +55,33 @@ section {
   box-shadow: 0 0 0 6px #fff; /* white ring to "cut" the line and make dot sit on it */
 }
 
-/* hide line on small screens (mobile stacked layout) - optional */
-/* @media (max-width: 767.98px) {
-  .timeline-line { display: none !important; }
-  .education-item .dot {
-    /* place dot to the left of content on mobile */
-    /* position: relative;
-    left: auto;
-    top: auto;
-    transform: none;
-    margin-bottom: 12px;
-    box-shadow: none;
+@media (max-width: 767px) {
+  /* Hide the vertical line on mobile */
+  .timeline-line {
+    display: none;
   }
 
-  .education-item .col-md-2 { display: none; } optional: hide the middle column on small screens
-} */ 
+  /* Make each item stacked neatly */
+  .education-item {
+    text-align: left;
+    margin-bottom: 40px;
+    min-height: auto;
+  }
+
+  /* Center the dot and align with text */
+  .education-item .dot {
+    position: static;
+    display: inline-block;
+    margin-right: 10px;
+    transform: none;
+  }
+
+  /* Adjust the text containers */
+  .education-item .col-md-5,
+  .education-item .col-md-2 {
+    text-align: left !important;
+  }
+}
+
+
 
