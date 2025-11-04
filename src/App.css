@@ -1,83 +1,120 @@
-body {
-  width: 100%;
+/* --- Education timeline styles --- */
+#education {
   font-family: Arial, sans-serif;
-  scroll-behavior: smooth;
 }
 
-section {
-  min-height: 100vh;
-}
-
-.home-section {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-/* Ensure container is positioned so the vertical line can be centered */
+/* container relative for absolute line */
 #education .container {
   position: relative;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 }
 
-/* vertical center line for timeline (visible on md and up) */
+/* timeline line - hidden on small screens */
 .timeline-line {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 4px;
-  height: 100%;
-  background-color: #000;
-  z-index: 1; /* behind the dot but above other background */
+  display: none; /* default hidden (phone) */
 }
 
-/* each timeline row should be a positioned container so the dot can sit on the line */
+@media (min-width: 768px) {
+  .timeline-line {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 100%;
+    background-color: #000;
+    z-index: 1;
+  }
+}
+
+/* Each row becomes a 3-column grid on md+:
+   left content | center column (for dot/line) | right content
+   Using calc(50% - 20px) to bring left/right close to center. */
 .education-item {
   position: relative;
-  /* ensure there is enough height for the dot to center vertically */
-  min-height: 70px;
-  z-index: 2; /* make sure content sits above the line background */
+  z-index: 2;
+  margin-bottom: 1.5rem;
+  padding: 0.5rem 0;
 }
 
-/* dot sits exactly on the center line */
-.education-item .dot {
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-  background-color: #000;
-  border-radius: 50%;
-  position: absolute;
-  left: 50%;               /* center horizontally (matches the line) */
-  top: 50%;                /* center vertically within the row */
-  transform: translate(-50%, -50%);
-  z-index: 3;              /* above the line */
-  box-shadow: 0 0 0 6px #fff; /* white ring to "cut" the line and make dot sit on it */
-}
-
-@media (max-width: 767px) {
-
-  /* Make each item stacked neatly */
+/* Desktop/tablet layout */
+@media (min-width: 768px) {
   .education-item {
+    display: grid;
+    grid-template-columns: calc(50% - 20px) 40px calc(50% - 20px);
+    gap: 0;
+    align-items: center;
+    min-height: 70px;
+  }
+
+  /* left and right flow nicely and are aligned to the line */
+  .edu-left {
+    text-align: right;
+    padding-right: 8px; /* small breathing room so text doesn't touch the line */
+  }
+
+  .edu-right {
     text-align: left;
-    margin-bottom: 40px;
-    min-height: auto;
+    padding-left: 8px;
   }
 
-  /* Center the dot and align with text */
-  .education-item .dot {
-    position: static;
-    display: inline-block;
-    margin-right: 10px;
-    transform: none;
-  }
-
-  /* Adjust the text containers */
-  .education-item .col-md-5,
-  .education-item .col-md-2 {
-    text-align: left !important;
+  /* center column kept for dot - make sure it doesn't add extra spacing */
+  .edu-center {
+    text-align: center;
+    position: relative;
   }
 }
 
+/* Mobile layout: stack vertically, center text; no vertical line */
+@media (max-width: 767.98px) {
+  .education-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.25rem;
+    padding: 0.5rem 0;
+  }
 
+  .edu-left, .edu-right, .edu-center {
+    width: 100%;
+    padding: 0;
+  }
+}
 
+/* DOT styling */
+/* On md+ use absolute positioning so it sits centered on the vertical line */
+@media (min-width: 768px) {
+  .dot {
+    width: 16px;
+    height: 16px;
+    background-color: #000;
+    border-radius: 50%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+    box-shadow: 0 0 0 6px #fff; /* white ring so dot appears on top of line */
+  }
+}
+
+/* On mobile the dot becomes inline/relative and sits between stacked texts */
+@media (max-width: 767.98px) {
+  .dot {
+    width: 14px;
+    height: 14px;
+    background-color: #000;
+    border-radius: 50%;
+    position: relative;
+    margin: 0.35rem auto; /* places dot centered between the items */
+    box-shadow: 0 0 0 6px #fff;
+  }
+}
+
+/* heading spacing */
+#education h2 {
+  margin-bottom: 1.5rem;
+}
