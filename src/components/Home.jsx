@@ -9,14 +9,14 @@ const Home = () => {
 
   const TYPING_SPEED = 45;       
   const DELETING_SPEED = 45;     
-  const PAUSE_AFTER_TYPE = 350;  
+  const PAUSE_AFTER_TYPE = 150;  
 
   const [phraseIndex, setPhraseIndex] = useState(0);
   const [subIndex, setSubIndex] = useState(0); 
   const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
-    AOS.init({ duration: 500, once: true });
+    AOS.init({ duration: 1000, once: true });
   }, []);
 
   useEffect(() => {
