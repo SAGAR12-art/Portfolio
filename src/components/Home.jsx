@@ -7,7 +7,7 @@ import "aos/dist/aos.css";
 const Home = () => {
   const phrases = ["Tech passionate", "Web developer", "Software engineer"];
 
-  const TYPING_SPEED = 100;       
+  const TYPING_SPEED = 45;       
   const DELETING_SPEED = 45;     
   const PAUSE_AFTER_TYPE = 350;  
 
