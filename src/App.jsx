@@ -1,35 +1,63 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useEffect, useRef, useState } from "react";
+import NavbarComp from "./components/Navbar";
+import Home from "./components/Home";
+import About from "./components/About";
+import Education from "./components/Education";
+import Experience from "./components/Experience";
+import Skills from "./components/Skills";
+import Projects from "./components/Projects";
+import Contact from "./components/Contact";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "aos/dist/aos.css";
+import AOS from "aos";
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const phrases = ["Tech passionate", "Web developer", "Software engineer"];
+  const [text, setText] = useState("");
+  const [current, setCurrent] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const charIndex = useRef(0);
+
+  useEffect(() => {
+    AOS.init({ duration: 1000, once: true });
+
+    const type = () => {
+      const fullText = phrases[current];
+      if (isDeleting) {
+        setText(fullText.substring(0, charIndex.current--));
+      } else {
+        setText(fullText.substring(0, charIndex.current++));
+      }
+
+      if (!isDeleting && charIndex.current === fullText.length + 1) {
+        setIsDeleting(true);
+        setTimeout(type, 1000);
+      } else if (isDeleting && charIndex.current === 0) {
+        setIsDeleting(false);
+        setCurrent((prev) => (prev + 1) % phrases.length);
+        setTimeout(type, 500);
+      } else {
+        setTimeout(type, isDeleting ? 75 : 150);
+      }
+    };
+
+    const timeout = setTimeout(type, 500);
+    return () => clearTimeout(timeout);
+  }, [current, isDeleting]);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="container-fluid">
+      <NavbarComp />
+      <Home typewriterText={text} />
+      <About style={{marginBottom:'0 px'}}/>
+      <Education />
+      <Experience/>
+      <Projects />      
+      <Skills />
+      <Contact />
+    </div>
+  );
 }
 
-export default App
+export default App;

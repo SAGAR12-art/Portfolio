@@ -1,42 +1,73 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+body {
+  width: 100%;
+  font-family: Arial, sans-serif;
+  scroll-behavior: smooth;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+section {
+  min-height: 100vh;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+.home-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Ensure container is positioned so the vertical line can be centered */
+#education .container {
+  position: relative;
+}
+
+/* vertical center line for timeline (visible on md and up) */
+.timeline-line {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 100%;
+  background-color: #000;
+  z-index: 1; /* behind the dot but above other background */
+}
+
+/* each timeline row should be a positioned container so the dot can sit on the line */
+.education-item {
+  position: relative;
+  /* ensure there is enough height for the dot to center vertically */
+  min-height: 70px;
+  z-index: 2; /* make sure content sits above the line background */
+}
+
+/* dot sits exactly on the center line */
+.education-item .dot {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background-color: #000;
+  border-radius: 50%;
+  position: absolute;
+  left: 50%;               /* center horizontally (matches the line) */
+  top: 50%;                /* center vertically within the row */
+  transform: translate(-50%, -50%);
+  z-index: 3;              /* above the line */
+  box-shadow: 0 0 0 6px #fff; /* white ring to "cut" the line and make dot sit on it */
+}
+
+/* hide line on small screens (mobile stacked layout) - optional */
+@media (max-width: 767.98px) {
+  .timeline-line { display: none !important; }
+  .education-item .dot {
+    /* place dot to the left of content on mobile */
+    position: relative;
+    left: auto;
+    top: auto;
+    transform: none;
+    margin-bottom: 12px;
+    box-shadow: none;
   }
-  to {
-    transform: rotate(360deg);
-  }
+
+  .education-item .col-md-2 { display: none; } /* optional: hide the middle column on small screens */
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
